@@ -58,6 +58,11 @@ public:
         return has_value;
     }
 
+    void unset()
+    {
+        has_value = false;
+    }
+
     void insertResultInto(IColumn & to) const
     {
         if (has())
@@ -508,6 +513,11 @@ public:
         return size;
     }
 
+    void unset()
+    {
+        size = 0;
+    }
+
 private:
     char * getDataMutable()
     {
@@ -780,6 +790,12 @@ public:
     bool has() const
     {
         return !value.isNull();
+    }
+
+    void unset()
+    {
+        // because destroy() is private function
+        value.~Field();
     }
 
     void insertResultInto(IColumn & to) const
